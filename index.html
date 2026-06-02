@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>StartupScout India – Multi‑Select & Share | Large Icons</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, 'Segoe UI', 'Inter', -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(145deg, #eef5fa 0%, #e0eef7 100%);
+      color: #0a2e42;
+      padding: 1.5rem 1.2rem 3rem;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 2rem;
+      background: rgba(255,255,255,0.5);
+      backdrop-filter: blur(8px);
+      border-radius: 2rem;
+      padding: 1rem;
+    }
+    .hero h1 {
+      font-size: 2.2rem;
+      background: linear-gradient(135deg, #0c4a62, #1b7f8f);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    .hero p {
+      color: #2c5f7a;
+      font-weight: 500;
+      font-size: 1rem;
+    }
+    .scraper-badge {
+      background: #ffffffcc;
+      display: inline-block;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #1f6e8c;
+      margin-top: 8px;
+    }
+
+    /* tabs */
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .tab-btn {
+      background: rgba(255,255,255,0.8);
+      border: 1px solid rgba(31,111,148,0.3);
+      padding: 0.7rem 1.6rem;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 60px;
+      cursor: pointer;
+      transition: 0.2s;
+      color: #1f5e7e;
+    }
+    .tab-btn.active {
+      background: #1f6f94;
+      color: white;
+      border-color: #1f6f94;
+      box-shadow: 0 6px 14px rgba(31,111,148,0.3);
+    }
+    .tab-btn:hover:not(.active) {
+      background: rgba(31,111,148,0.2);
+      transform: translateY(-2px);
+    }
+
+    /* selection bar */
+    .selection-bar {
+      background: white;
+      border-radius: 80px;
+      padding: 0.8rem 1.5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      border: 1px solid #d8e6f0;
+    }
+    .selected-info {
+      background: #eef3fc;
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1a6f94;
+    }
+    .share-primary-btn {
+      background: #1f6f94;
+      border: none;
+      padding: 0.6rem 1.3rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: 0.2s;
+    }
+    .share-primary-btn:hover {
+      background: #0f5a7a;
+      transform: scale(0.97);
+    }
+    .share-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      transition: all 0.2s;
+    }
+    .share-options.hidden {
+      display: none;
+    }
+    .share-btn {
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: 0.2s;
+    }
+    .share-wa { background: #25D366; color: white; }
+    .share-gmail { background: #EA4335; color: white; }
+    .share-linkedin { background: #0A66C2; color: white; }
+    .share-insta { background: #E4405F; color: white; }
+    .share-btn:hover { transform: scale(0.97); filter: brightness(0.95); }
+    .select-all-btn, .clear-selection-btn {
+      background: #eef2f8;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      color: #2c627a;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .selection-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* cards grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 2rem;
+    }
+    .card {
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(2px);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      box-shadow: 0 12px 24px -12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 1px solid rgba(255,255,255,0.6);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 22px 30px -14px rgba(0,0,0,0.15);
+    }
+    .card-checkbox {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      z-index: 5;
+      background: rgba(255,255,240,0.95);
+      backdrop-filter: blur(2px);
+      border-radius: 40px;
+      padding: 6px 12px;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+    }
+    .card-checkbox input {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      accent-color: #1f6f94;
+    }
+    .card-canvas-img {
+      width: 100%;
+      height: 190px;
+      display: block;
+      background: #1f6f94;
+    }
+    .card-content {
+      padding: 1.3rem 1.3rem 1.2rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      line-height: 1.4;
+      margin-bottom: 0.6rem;
+      color: #0c3346;
+      padding-right: 2rem;
+    }
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 0.7rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .badge-cat {
+      background: #e9f0f5;
+      border-radius: 30px;
+      padding: 0.3rem 0.9rem;
+    }
+    .card-summary {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: #3b6c85;
+      margin-bottom: 1.2rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .card-footer {
+      display: flex;
+      justify-content: flex-start;
+      margin-top: auto;
+    }
+    .direct-link {
+      background: #eef3fc;
+      padding: 0.55rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: #1f6f94;
+      transition: 0.2s;
+    }
+    .direct-link:hover {
+      background: #e2eaf3;
+    }
+    .loader {
+      text-align: center;
+      padding: 3rem;
+      font-weight: 600;
+      color: #3083a8;
+      background: rgba(255,255,255,0.7);
+      border-radius: 2rem;
+      font-size: 1.1rem;
+    }
+    footer {
+      margin-top: 3.5rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #5e8aa3;
+      border-top: 1px solid rgba(93,138,163,0.3);
+      padding-top: 1.8rem;
+    }
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1e2f3a;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      z-index: 1100;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    @media (max-width: 680px) {
+      body { padding: 1rem; }
+      .card-title { font-size: 1.1rem; }
+      .selection-bar { flex-direction: column; align-items: stretch; border-radius: 1.5rem; }
+      .share-options { justify-content: center; }
+      .tab-btn { padding: 0.5rem 1.2rem; font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>🇮🇳 StartupScout India</h1>
+    <p>🔍 live scraper · startup news · govt grants · jobs & vacancies</p>
+    <div class="scraper-badge">✨ Larger icons · Multi‑select · Share to WhatsApp, Gmail, LinkedIn, Instagram</div>
+  </div>
+
+  <div class="tabs" id="tabContainer">
+    <button class="tab-btn" data-cat="all">📰 All Articles</button>
+    <button class="tab-btn active" data-cat="news">📰 Startup News</button>
+    <button class="tab-btn" data-cat="grants">🎯 Grants & Schemes</button>
+    <button class="tab-btn" data-cat="jobs">💼 Jobs / Vacancies</button>
+  </div>
+
+  <div class="selection-bar" id="selectionBar">
+    <div class="selected-info" id="selectedCountDisplay">✅ 0 items selected</div>
+    <div class="selection-actions">
+      <button id="selectAllBtn" class="select-all-btn">☑️ Select all</button>
+      <button id="clearSelectionBtn" class="clear-selection-btn">🗑️ Clear</button>
+      <button id="primaryShareBtn" class="share-primary-btn">📤 Share Selected ▼</button>
+    </div>
+    <div id="shareOptionsContainer" class="share-options hidden">
+      <button id="shareWhatsAppBtn" class="share-btn share-wa">📱 WhatsApp</button>
+      <button id="shareGmailBtn" class="share-btn share-gmail">📧 Gmail</button>
+      <button id="shareLinkedinBtn" class="share-btn share-linkedin">🔗 LinkedIn</button>
+      <button id="shareInstagramBtn" class="share-btn share-insta">📸 Instagram</button>
+    </div>
+  </div>
+
+  <div id="dynamicContent">
+    <div class="loader">🕸️ Scraper is crawling Indian startup ecosystem ...</div>
+  </div>
+  <footer>
+    ✨ Select opportunities → click "Share Selected" → choose platform.
+  </footer>
+</div>
+<div id="toastMsg" class="toast"></div>
+
+<script>
+  // ---------- SCRAPER DATA (simulated real-time feeds) ----------
+  function runScraper() {
+    return [
+      { id: 1, category: "news", title: "🚀 Zepto becomes India's 1st unicorn of 2025, raises $665M", summary: "Quick-commerce startup Zepto hits $3.9B valuation. Expansion to 50+ cities, plans to hire 2k+ employees.", link: "https://economictimes.indiatimes.com/tech/funding/zepto-unicorn-fundraising-2025", linkType: "article", metaTag: "funding • unicorn" },
+      { id: 2, category: "news", title: "🧠 Bengaluru AI startup Sarvam launches LLM for 10 regional languages", summary: "Sarvam AI raises $45M led by Lightspeed, focus on generative AI for rural India.", link: "https://yourstory.com/2025/02/sarvam-ai-india-llm", linkType: "article", metaTag: "AI • deep tech" },
+      { id: 3, category: "news", title: "⚡ Ola Electric secures ₹2,000Cr PLI grant for Gigafactory", summary: "Boost for EV ecosystem: 5,000+ new jobs, largest lithium-cell plant in South Asia.", link: "https://www.financialexpress.com/business/ola-electric-pli-grant", linkType: "article", metaTag: "EV • green mobility" },
+      { id: 4, category: "news", title: "🍔 Curefoods acquires Krispy Kreme India, targets $150M revenue", summary: "Cloud kitchen unicorn expands into QSR, aims to double store count by 2026.", link: "https://inc42.com/buzz/curefoods-krispy-kreme", linkType: "article", metaTag: "D2C • foodtech" },
+      { id: 5, category: "news", title: "🛰️ Agnikul Cosmos successfully tests orbital engine", summary: "ISRO-backed spacetech startup moves closer to commercial launches, to hire 200+ engineers.", link: "https://www.thehindu.com/sci-tech/agnikul-engine-test", linkType: "article", metaTag: "spacetech • Make in India" },
+      { id: 6, category: "grants", title: "💰 Startup India Seed Fund (SISFS) up to ₹50 Lakhs", summary: "Early-stage grants for product validation, prototype testing. Deadline extended to Dec 2025.", link: "https://www.startupindia.gov.in/seed-fund", linkType: "apply", metaTag: "Govt of India • non-dilutive" },
+      { id: 7, category: "grants", title: "🧪 BIRAC SPARSH Grant: Healthcare Innovations (₹50L)", summary: "Biotech & medtech startups solving maternal/child health challenges. Mentorship + funding.", link: "https://birac.nic.in/sparsh", linkType: "apply", metaTag: "biotech • social impact" },
+      { id: 8, category: "grants", title: "💧 AIM-ICDK Water Technology Grant (up to ₹40 Lakhs)", summary: "Water & sanitation startups: prototype development, field trials. Supported by Atal Innovation Mission.", link: "https://aim.gov.in/water-grant-call", linkType: "apply", metaTag: "cleantech • sustainable" },
+      { id: 9, category: "grants", title: "📱 Google for Startups Accelerator India (Cloud + $100k)", summary: "$100k Google Cloud credits + mentorship for AI/ML & SaaS startups. Rolling applications.", link: "https://startup.google.com/accelerator/india/", linkType: "apply", metaTag: "mentorship • global" },
+      { id: 10, category: "grants", title: "🌾 NABARD Agri-Innovation Grant (₹25 Lakhs)", summary: "For agritech startups focusing on farmer income and sustainable practices.", link: "https://www.nabard.org/agri-startup-grant", linkType: "apply", metaTag: "agritech • rural" },
+      { id: 11, category: "jobs", title: "Full Stack Developer (React+Node) · Razorpay, Bengaluru", summary: "Fintech unicorn | Build next-gen payment infrastructure. Experience: 2-5 yrs, competitive salary + ESOPs.", link: "https://razorpay.com/careers/fullstack-dev", linkType: "apply", metaTag: "📍 Bengaluru • Full-time" },
+      { id: 12, category: "jobs", title: "Growth Marketing Manager · Unacademy, Bangalore", summary: "EdTech leader: drive user growth & retention. 3+ years experience in performance marketing.", link: "https://unacademy.com/careers/growth-manager", linkType: "apply", metaTag: "📍 Bangalore • 5+ yrs" },
+      { id: 13, category: "jobs", title: "Data Scientist (LLMs) · Ola Krutrim AI, Bengaluru", summary: "Work on India's own foundational models. Masters/PhD preferred, generous equity.", link: "https://olacabs.com/careers/data-scientist-ai", linkType: "apply", metaTag: "📍 BLR • AI/ML" },
+      { id: 14, category: "jobs", title: "Product Manager · Jar (Fintech), Mumbai", summary: "Lead gold savings & micro-investing products. 2+ years PM, user-first mindset. ESOPs included.", link: "https://www.jar.com/careers/product-manager", linkType: "apply", metaTag: "📍 Mumbai • hybrid" },
+      { id: 15, category: "jobs", title: "Blockchain Engineer · Polygon (Remote India)", summary: "zkEVM infrastructure development. Strong Rust/Go, remote-first culture, global pay.", link: "https://polygon.technology/careers/blockchain-dev", linkType: "apply", metaTag: "🌐 Remote • web3" }
+    ];
+  }
+
+  let allItems = [];
+  let currentCategory = 'news';
+  let selectedIds = new Set();
+  let currentFilteredItems = [];
+
+  // ----- Canvas thumbnail generator (no external images) -----
+  function drawThumbnail(canvas, item) {
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width, h = canvas.height;
+    const grad = ctx.createLinearGradient(0, 0, w, h);
+    if (item.category === 'news') { grad.addColorStop(0, '#1f6f94'); grad.addColorStop(1, '#2c9fbe'); }
+    else if (item.category === 'grants') { grad.addColorStop(0, '#2c7a47'); grad.addColorStop(1, '#5fa87c'); }
+    else { grad.addColorStop(0, '#b4533b'); grad.addColorStop(1, '#e6896e'); }
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, w, h);
+    ctx.fillStyle = 'rgba(255,245,220,0.12)';
+    for(let i=0;i<80;i++) ctx.fillRect((i*31)%w, (i*19)%h, 12, 3);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = `bold ${Math.floor(w*0.085)}px system-ui`;
+    const label = item.category === 'news' ? '📰 NEWS' : (item.category === 'grants' ? '🎯 GRANT' : '💼 JOB');
+    ctx.fillText(label, 18, 42);
+    ctx.font = `bold ${Math.floor(w*0.05)}px system-ui`;
+    ctx.fillStyle = '#FFF2DF';
+    ctx.fillText('🇮🇳 StartupScout', 18, 80);
+    ctx.font = `${Math.floor(w*0.042)}px system-ui`;
+    ctx.fillStyle = '#FFFFFF';
+    let shortTitle = item.title.length > 42 ? item.title.slice(0,39)+'...' : item.title;
+    wrapTextCard(ctx, shortTitle, 18, 120, w-36, 26);
+    ctx.font = `12px system-ui`;
+    ctx.fillStyle = '#FFEEDD';
+    let shortSum = item.summary.length > 68 ? item.summary.slice(0,65)+'...' : item.summary;
+    wrapTextCard(ctx, shortSum, 18, 155, w-36, 20);
+    ctx.font = `italic 10px monospace`;
+    ctx.fillStyle = '#FFE0A3';
+    ctx.fillText('🔗 ' + (item.linkType === 'apply' ? 'Apply now' : 'Read story'), 18, h-14);
+  }
+  function wrapTextCard(ctx, text, x, y, maxW, lineH) {
+    let words = text.split('');
+    let line = '';
+    for(let ch of words) {
+      let test = line + ch;
+      if(ctx.measureText(test).width > maxW && line.length>0) {
+        ctx.fillText(line, x, y);
+        line = ch;
+        y += lineH;
+      } else line = test;
+    }
+    ctx.fillText(line, x, y);
+  }
+
+  // ----- Render cards with checkboxes (supports 'all' category) -----
+  function renderCategory(category) {
+    const container = document.getElementById('dynamicContent');
+    let filtered;
+    if (category === 'all') {
+      filtered = [...allItems];
+    } else {
+      filtered = allItems.filter(i => i.category === category);
+    }
+    currentFilteredItems = filtered;
+    if (!filtered.length) {
+      container.innerHTML = `<div class="loader">⚠️ No ${category === 'all' ? 'articles' : category} found.</div>`;
+      updateSelectedUI();
+      return;
+    }
+    container.innerHTML = `<div class="cards-grid" id="cardsGrid"></div>`;
+    const grid = document.getElementById('cardsGrid');
+    filtered.forEach(item => {
+      const card = document.createElement('div'); card.className = 'card';
+      const isChecked = selectedIds.has(item.id);
+      const checkboxHtml = `
+        <div class="card-checkbox">
+          <input type="checkbox" class="item-selector" data-id="${item.id}" id="chk_${item.id}" ${isChecked ? 'checked' : ''}>
+          <label for="chk_${item.id}" style="cursor:pointer; font-weight:600;">Select</label>
+        </div>
+      `;
+      const thumbCanvas = document.createElement('canvas');
+      thumbCanvas.width = 400; thumbCanvas.height = 180;
+      thumbCanvas.className = 'card-canvas-img';
+      drawThumbnail(thumbCanvas, item);
+      const contentDiv = document.createElement('div'); contentDiv.className = 'card-content';
+      contentDiv.innerHTML = `
+        <div class="card-title">${escapeHtml(item.title)}</div>
+        <div class="meta-row"><span class="badge-cat">${item.category === 'news' ? '📰 Startup News' : item.category === 'grants' ? '🎯 Grant' : '💼 Job Opening'}</span><span>✨ ${escapeHtml(item.metaTag)}</span></div>
+        <div class="card-summary">${escapeHtml(item.summary)}</div>
+        <div class="card-footer">
+          <a href="${escapeHtml(item.link)}" target="_blank" rel="noopener" class="direct-link">${item.linkType === 'apply' ? '📄 Apply / Direct Link' : '🔗 Read Article'}</a>
+        </div>
+      `;
+      card.insertAdjacentHTML('afterbegin', checkboxHtml);
+      card.appendChild(thumbCanvas);
+      card.appendChild(contentDiv);
+      grid.appendChild(card);
+    });
+    // attach checkbox events
+    document.querySelectorAll('.item-selector').forEach(cb => {
+      cb.addEventListener('change', (e) => {
+        const id = parseInt(cb.dataset.id);
+        if (cb.checked) selectedIds.add(id);
+        else selectedIds.delete(id);
+        updateSelectedUI();
+        document.getElementById('shareOptionsContainer').classList.add('hidden');
+      });
+    });
+    updateSelectedUI();
+  }
+
+  function updateSelectedUI() {
+    const count = selectedIds.size;
+    document.getElementById('selectedCountDisplay').innerHTML = `✅ ${count} item${count !== 1 ? 's' : ''} selected`;
+    document.querySelectorAll('.item-selector').forEach(cb => {
+      const id = parseInt(cb.dataset.id);
+      cb.checked = selectedIds.has(id);
+    });
+  }
+
+  function clearSelections() {
+    selectedIds.clear();
+    updateSelectedUI();
+    renderCategory(currentCategory);
+    document.getElementById('shareOptionsContainer').classList.add('hidden');
+  }
+
+  function selectAllVisible() {
+    currentFilteredItems.forEach(item => selectedIds.add(item.id));
+    renderCategory(currentCategory);
+    updateSelectedUI();
+    document.getElementById('shareOptionsContainer').classList.add('hidden');
+  }
+
+  function toggleShareOptions() {
+    const container = document.getElementById('shareOptionsContainer');
+    if (selectedIds.size === 0) {
+      showToast('No items selected. Use checkboxes to select opportunities.');
+      return;
+    }
+    container.classList.toggle('hidden');
+  }
+
+  // ----- Share helpers -----
+  function getSelectedItemsWhatsAppText() {
+    const selected = allItems.filter(item => selectedIds.has(item.id));
+    if (selected.length === 0) return null;
+    let body = `🚀 *StartupScout India* – Selected Opportunities%0A%0A`;
+    selected.forEach((item, idx) => {
+      body += `${idx+1}. *${item.title}*%0A📌 ${item.summary.substring(0, 120)}%0A🔗 ${item.link}%0A%0A`;
+    });
+    body += `✨ Shared via StartupScout India – scraper-based discovery.`;
+    return body;
+  }
+
+  function getSelectedItemsPlain() {
+    const selected = allItems.filter(item => selectedIds.has(item.id));
+    if (selected.length === 0) return null;
+    let text = `StartupScout India – Selected Opportunities\n\n`;
+    selected.forEach((item, idx) => {
+      text += `${idx+1}. ${item.title}\n📌 ${item.summary.substring(0, 120)}\n🔗 ${item.link}\n\n`;
+    });
+    text += `✨ Shared via StartupScout India – scraper-based discovery.`;
+    return text;
+  }
+
+  function showToast(msg) {
+    const toast = document.getElementById('toastMsg');
+    toast.textContent = msg;
+    toast.style.opacity = '1';
+    setTimeout(() => toast.style.opacity = '0', 3000);
+  }
+
+  function shareToWhatsApp() {
+    const text = getSelectedItemsWhatsAppText();
+    if (!text) { showToast('No items selected.'); return; }
+    window.open(`https://wa.me/?text=${text}`, '_blank');
+    showToast('📱 Opening WhatsApp with selected items');
+  }
+
+  function shareToGmail() {
+    const selected = allItems.filter(item => selectedIds.has(item.id));
+    if (selected.length === 0) { showToast('No items selected.'); return; }
+    let subject = `StartupScout India: ${selected.length} opportunity(ies)`;
+    let body = "";
+    selected.forEach((item, idx) => {
+      body += `${idx+1}. ${item.title}\n${item.summary.substring(0, 150)}\nLink: ${item.link}\n\n`;
+    });
+    body += `\nShared via StartupScout India – discover news, grants & jobs.`;
+    window.open(`mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, '_blank');
+    showToast('📧 Opening Gmail (or default email)');
+  }
+
+  function shareToLinkedIn() {
+    const selected = allItems.filter(item => selectedIds.has(item.id));
+    if (selected.length === 0) { showToast('No items selected.'); return; }
+    let text = `StartupScout India: `;
+    if (selected.length === 1) {
+      text = `${selected[0].title} – ${selected[0].summary.substring(0, 100)} Read more: ${selected[0].link}`;
+    } else {
+      text = `I found ${selected.length} interesting opportunities on StartupScout India. Check them out: `;
+      selected.forEach((item, idx) => {
+        text += `\n${idx+1}. ${item.title} – ${item.link}`;
+      });
+    }
+    window.open(`https://www.linkedin.com/sharing/share-offsite/?text=${encodeURIComponent(text)}`, '_blank');
+    showToast('🔗 Opening LinkedIn share dialog');
+  }
+
+  function shareToInstagram() {
+    const selected = allItems.filter(item => selectedIds.has(item.id));
+    if (selected.length === 0) { showToast('No items selected.'); return; }
+    let text = `✨ StartupScout India – Opportunities:\n\n`;
+    selected.forEach((item, idx) => {
+      text += `${idx+1}. ${item.title}\n🔗 ${item.link}\n\n`;
+    });
+    text += `\nShared via StartupScout India – #startup #india`;
+    navigator.clipboard.writeText(text).then(() => {
+      showToast('📸 Text copied! Open Instagram and paste it in a Story/DM.');
+      alert('Instagram sharing:\n\nText has been copied to clipboard.\nOpen Instagram app → Create a Story or DM → paste the text.\n(Instagram does not support direct URL sharing.)');
+    }).catch(() => {
+      showToast('Failed to copy. Manual copy required.');
+    });
+  }
+
+  // ----- Initialization and tabs -----
+  async function initScraper() {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        allItems = runScraper();
+        resolve();
+      }, 400);
+    });
+  }
+
+  async function loadCategory(category) {
+    const container = document.getElementById('dynamicContent');
+    container.innerHTML = `<div class="loader">🕸️ Scraping ${category === 'all' ? 'all articles' : category} ...</div>`;
+    if (allItems.length === 0) await initScraper();
+    currentCategory = category;
+    renderCategory(category);
+    document.getElementById('shareOptionsContainer').classList.add('hidden');
+  }
+
+  function bindUI() {
+    const tabs = document.querySelectorAll('.tab-btn');
+    tabs.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const cat = btn.dataset.cat;
+        if (!cat) return;
+        tabs.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        loadCategory(cat);
+      });
+    });
+    document.getElementById('selectAllBtn').addEventListener('click', selectAllVisible);
+    document.getElementById('clearSelectionBtn').addEventListener('click', clearSelections);
+    document.getElementById('primaryShareBtn').addEventListener('click', toggleShareOptions);
+    document.getElementById('shareWhatsAppBtn').addEventListener('click', shareToWhatsApp);
+    document.getElementById('shareGmailBtn').addEventListener('click', shareToGmail);
+    document.getElementById('shareLinkedinBtn').addEventListener('click', shareToLinkedIn);
+    document.getElementById('shareInstagramBtn').addEventListener('click', shareToInstagram);
+  }
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, m => m === '&' ? '&amp;' : (m === '<' ? '&lt;' : '&gt;'));
+  }
+
+  (async () => {
+    bindUI();
+    await initScraper();
+    loadCategory('news');
+  })();
+</script>
+</body>
+</html>
